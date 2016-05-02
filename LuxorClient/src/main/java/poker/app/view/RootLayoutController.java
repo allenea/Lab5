@@ -106,6 +106,24 @@ public class RootLayoutController implements Initializable {
 		//	Group them together with a Toggle Group
 		//	Write a method to return which is selected.. .check out getRuleName()
 
+		
+		Menu betRle = new Menu();
+		betRle.setText("Betting Rules");
+		mb.getMenus().add(1,betRle);
+		
+		ToggleGroup toggleBetRle = new ToggleGroup();
+		RadioMenuItem betRle1 = new RadioMenuItem("No Limit");
+		RadioMenuItem betRle2 = new RadioMenuItem("Pot Limit");
+		betRle1.setId("No Limit");
+		betRle2.setId("Pot Limit");
+		betRle1.setSelected(true);
+		betRle2.setSelected(false);
+
+		betRle1.setToggleGroup(toggleBetRle);
+		betRle2.setToggleGroup(toggleBetRle);
+
+		betRle.getItems().add(betRle1);
+		betRle.getItems().add(betRle2);
 	}
     
 	

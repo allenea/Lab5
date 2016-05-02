@@ -1,23 +1,58 @@
 package poker.app.view;
 
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.UUID;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.SequentialTransitionBuilder;
+import javafx.animation.TranslateTransition;
+import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import poker.app.MainApp;
 import pokerBase.Action;
+import pokerBase.Card;
+import pokerBase.Deck;
 import pokerBase.GamePlay;
+import pokerBase.GamePlayPlayerHand;
+import pokerBase.Hand;
 import pokerBase.Player;
 import pokerBase.Table;
 import pokerEnums.eAction;
@@ -26,6 +61,7 @@ import pokerEnums.ePlayerPosition;
 
 public class PokerTableController {
 
+	private static final Node imgViewDealerButtonX = null;
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -205,14 +241,27 @@ public class PokerTableController {
 		//If you are, make the imgViewDealerButtonX visible = true
 		
 		
-		if ( mainApp.getPlayer() == HubGamePlay.getGameDealer()){
+		if ( mainApp.getPlayer().getPlayerID() == HubGamePlay.getGameDealer()){
 			imgViewDealerButtonPos1.setVisible(false);
 			imgViewDealerButtonPos2.setVisible(false);
 			imgViewDealerButtonPos3.setVisible(false);
 			imgViewDealerButtonPos4.setVisible(false);
 		}
-
+		int Dealer = mainApp.getPlayer().getiPlayerPosition();
 		
+		if (Dealer == 1){
+			imgViewDealerButtonPos1.setVisible(true);
+		}
+		if (Dealer == 2){
+			imgViewDealerButtonPos2.setVisible(true);
+		}
+
+		if (Dealer == 3){
+			imgViewDealerButtonPos3.setVisible(true);
+		}
+		else
+			imgViewDealerButtonPos4.setVisible(true);
+	
 	}
 	@FXML
 	void btnStart_Click(ActionEvent event) {

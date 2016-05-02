@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import exceptions.DeckException;
 import netgame.common.Hub;
@@ -20,7 +19,6 @@ import pokerBase.Player;
 import pokerBase.Rule;
 import pokerBase.Table;
 import pokerEnums.eAction;
-import pokerEnums.eDrawCount;
 import pokerEnums.eGame;
 import pokerEnums.eGameState;
 
@@ -84,8 +82,7 @@ public class PokerHub extends Hub {
 			
 				//	Get the Rule based on the game selected
 				//		1 line of code
-				Rule rle = new Rule(game);
-						//act.geteGame());
+				Rule rle = new Rule(act.geteGame());
 			
 				//	The table should eventually allow multiple instances of 'GamePlay'...
 				//		Each game played is an instance of 'GamePlay'...
@@ -97,7 +94,7 @@ public class PokerHub extends Hub {
 				
 				//	Start a new instance of GamePlay, based on rule set and Dealer (Player.PlayerID)
 				//		1 line of code
-				HubGamePlay = new GamePlay(rle, p);
+				HubGamePlay = new GamePlay(rle, p.getPlayerID());
 				//	There are 1+ players seated at the table... add these players to the game
 				//		< 5 lines of code
 				HubGamePlay.setGamePlayers(HubPokerTable.getHashPlayers());
@@ -143,8 +140,8 @@ public class PokerHub extends Hub {
 				
 				
 				
-				
 				//	Send the state of the game back to the players
+
 				sendToAll(HubGamePlay);
 				break;
 			case Deal:
@@ -152,7 +149,6 @@ public class PokerHub extends Hub {
 				/*
 				int iCardstoDraw[] = HubGamePlay.getRule().getiCardsToDraw();
 				int iDrawCount = iCardstoDraw[iDealNbr];
-
 				for (int i = 0; i<iDrawCount; i++)
 				{
 					try {

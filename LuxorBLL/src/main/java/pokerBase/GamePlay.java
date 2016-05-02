@@ -8,25 +8,21 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 
-import pokerEnums.eDrawCount;
-
 public class GamePlay implements Serializable   {
 
 	private UUID GameID;
 	//private UUID PlayerID_NextToAct = null;
 	private HashMap<UUID, Player> hmGamePlayers = new HashMap<UUID, Player>();
 	private ArrayList<GamePlayPlayerHand> GamePlayerHand = new ArrayList<GamePlayPlayerHand>();
-	//private HashMap<UUID, Hand> hmGamePlayerHand = new HashMap<UUID, Hand>();
 	private ArrayList<GamePlayPlayerHand> GameCommonHand = new ArrayList<GamePlayPlayerHand>();
-	private Hand CommonHand = new Hand();
 	private Rule rle;
 	private Deck GameDeck = null;
 	private UUID GameDealer = null;
 	private int[] iActOrder = null;
 	private Player PlayerNextToAct = null;
-	private eDrawCount DrawCnt;
 	
-	public GamePlay(Rule rle, Player p)
+	
+	public GamePlay(Rule rle, UUID GameDealerID)
 	{
 		this.setGameID(UUID.randomUUID());
 		this.setGameDealer(GameDealer);
