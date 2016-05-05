@@ -82,19 +82,18 @@ public class PokerHub extends Hub {
 			
 				//	Get the Rule based on the game selected
 				//		1 line of code
-				Rule rle = new Rule(act.geteGame());
+				Rule rule = new Rule(game);
 			
 				//	The table should eventually allow multiple instances of 'GamePlay'...
 				//		Each game played is an instance of 'GamePlay'...
 				//		For the first instance of GamePlay, pick a random player to be the 
 				//		'Dealer'...  
 				//		< 5 lines of code to pick random player				
-				Player p = HubPokerTable.PickRandomPlayerAtTable();
-				System.out.println("Random Player:"+ p.getiPlayerPosition());
+				Player player = HubPokerTable.PickRandomPlayerAtTable();
 				
 				//	Start a new instance of GamePlay, based on rule set and Dealer (Player.PlayerID)
 				//		1 line of code
-				HubGamePlay = new GamePlay(rle, p.getPlayerID());
+				HubGamePlay = new GamePlay(rule, player.getPlayerID());
 				//	There are 1+ players seated at the table... add these players to the game
 				//		< 5 lines of code
 				HubGamePlay.setGamePlayers(HubPokerTable.getHashPlayers());
@@ -102,7 +101,7 @@ public class PokerHub extends Hub {
 				//	GamePlay has a deck...  create the deck based on the game's rules (the rule
 				//		will have number of jokers... wild cards...
 				//		1 line of code
-				HubGamePlay.setGameDeck(new Deck(rle.GetNumberOfJokers(),rle.GetWildCards()));
+				HubGamePlay.setGameDeck(new Deck(rule.GetNumberOfJokers(),rule.GetWildCards()));
 				//	Determine the order of players and add each player in turn to GamePlay.lnkPlayerOrder
 				//	Example... four players playing...  seated in Position 1, 2, 3, 4
 				//			Dealer = Position 2
@@ -111,15 +110,12 @@ public class PokerHub extends Hub {
 				//			Dealer = Position 4
 				//			Order should be 1, 2, 4
 				//		< 10 lines of code
-				HubGamePlay.setiActOrder(GamePlay.GetOrder(p.getiPlayerPosition()));
+				HubGamePlay.setiActOrder(GamePlay.GetOrder(player.getiPlayerPosition()));
 				
 				//	Set PlayerID_NextToAct in GamePlay (next player after Dealer)
 				//		1 line of code
-				HubGamePlay.setPlayerNextToAct(HubGamePlay.getPlayerByPosition(p.getiPlayerPosition()));
-				
-				System.out.println("Dealer:"+ p.getPlayerName());
-				System.out.println("Next to Act: " + HubGamePlay.getPlayerNextToAct().getPlayerName());
-				
+				HubGamePlay.setPlayerNextToAct(HubGamePlay.getPlayerByPosition(player.getiPlayerPosition()));
+								
 				
 				//HubGamePlay.setDrawCnt(eDrawCount.FIRST);
 
